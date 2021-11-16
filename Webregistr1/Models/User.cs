@@ -12,7 +12,7 @@ namespace Webregistr1.Models
         [Required(ErrorMessage = "Введите фамилию")]
 
         //Отображение фамилии вместо LastName
-        [Display(Name = "Фамилиииия")]
+        [Display(Name = "Фамилия")]
 
         public string LastName { get; set; }
 
