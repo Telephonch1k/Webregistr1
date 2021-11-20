@@ -10,7 +10,7 @@ namespace Webregistr1.Models
         //для преподавателя могут понадобиться данные о ФИО
 
         [Required(ErrorMessage = "Введите фамилию")]   // сообщение об ошибке при валидации на стороне клиента
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Фамилияя")]
         public string LastName { get; set; }   //отображение Фамилия вместо LastName
 
         [Required(ErrorMessage = "Введите имя")]
