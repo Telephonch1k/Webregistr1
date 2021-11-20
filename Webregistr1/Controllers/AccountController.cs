@@ -95,7 +95,7 @@ namespace Webregistr1.Controllers
             else
                 return View("Error");
         }
-
+        
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
