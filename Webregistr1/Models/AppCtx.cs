@@ -7,11 +7,8 @@ namespace Webregistr1.Models
     {
         public AppCtx(DbContextOptions<AppCtx> options)
             : base(options)
-        {
-            Database.EnsureCreated();
-        }
-
-        public DbSet<FormOfStudy> FormsOfStudy { get; set; }
-        public DbSet<Specialty> Specialties { get; set; }
+    {
+        Database.EnsureCreated(); 
     }
+}
 }
