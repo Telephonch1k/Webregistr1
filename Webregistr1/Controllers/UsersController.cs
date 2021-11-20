@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Webregistr1.Models;
+using Webregistr1.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Webregistr1.Models;
-using Webregistr1.ViewModels.Users;
 
-namespace EducateApp.Controllers
+namespace Webregistr1.Controllers
 {
     [Authorize(Roles = "admin")]
     // теперь доступ ко всему контрроллеру будет доступен только администратору

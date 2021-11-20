@@ -32,51 +32,7 @@ namespace Webregistr1.Controllers
             return View();
         }
 
-        [HttpPost]
-        // теперь вы ввели значения и нажали кнопку "Зарегистрироваться", например
-        // методом Post данные передаются через модель для представления RegisterViewModel
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // создание экземпляра user класса User и установка его свойствам значениям из модели
-                User user = new User
-                {
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
-                    Patronymic = model.Patronymic,
-                    Email = model.Email,
-                    UserName = model.Email
-                };
-
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // генерация токена для пользователя
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Account",
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
-                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
-
-                    return View("RegisterConfirmation");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(model);   // возвращение модели в представление
-        }
-
+        
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
