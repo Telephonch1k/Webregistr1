@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Webregistr1.Models;
+using Webregistr1.Models.Validators;
 
 namespace Webregistr1
 {
@@ -24,8 +25,16 @@ namespace Webregistr1
             services.AddDbContext<AppCtx>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // ƒобавление сервиса валидатора парол€
+            services.AddTransient<IPasswordValidator<User>, CustomPasswordValidator>(
+                serv => new CustomPasswordValidator(8));
+
+            // ƒобавление сервиса валидатора пользовател€
+            services.AddTransient<IUserValidator<User>, CustomUserValidator>();
+
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<AppCtx>();
+                .AddEntityFrameworkStores<AppCtx>()
+                .AddDefaultTokenProviders();    // генерации токенов, которые отсылаютс€ в письме дл€ подтверждени€
 
             services.AddControllersWithViews();
         }
@@ -48,14 +57,14 @@ namespace Webregistr1
 
             app.UseRouting();
 
-            app.UseAuthentication();    // подключение аутентификации об€зательно перед UseAuthorization
+            app.UseAuthentication();    // подключение аутентификации об€зательно перед UseAuthorization()
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

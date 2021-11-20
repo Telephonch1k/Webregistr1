@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Webregistr1.Models;
 using Webregistr1.ViewModels;
+using Webregistr1.ViewModels.Account;
 
 namespace Webregistr1.Controllers
 {
